@@ -12,13 +12,14 @@
 
 <div th:replace="~{nav.html :: navbar}"></div>
 
-<form action="/add" method="POST">
-    <input name="product">
-    <input name="description">
-    <input name="price">
-    <input name="stock">
-    <input name="category">
-    <button type="submit">전송</button>
+<form action="/edit" method="POST">
+    <input type="hidden" name="id" th:value="${item.id}" />
+    <input name="product" th:value="${item.product}" />
+    <input name="description" th:value="${item.description}" />
+    <input name="price" th:value="${item.price}" />
+    <input name="stock" th:value="${item.stock}" />
+    <input name="category" th:value="${item.category}" />
+    <button type="submit">수정</button>
 </form>
 </body>
 </html>
