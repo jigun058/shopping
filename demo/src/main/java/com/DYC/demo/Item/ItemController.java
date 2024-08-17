@@ -1,11 +1,14 @@
 package com.DYC.demo.Item;
 
+import com.DYC.demo.Member;
+import com.DYC.demo.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,7 @@ public class ItemController {
 
     private final ItemRepository itemRepository;
     private final ItemService itemService;
+
 
     @GetMapping("/list")
     String func1(Model model){
@@ -76,7 +80,7 @@ public class ItemController {
         return ResponseEntity.status(200).body("삭제완료");
     }
 
-    @GetMapping("/list/page/{pg}")
+    @GetMapping("/list/{pg}")
     String getListPage(@PathVariable Integer pg, Model model) {
         Page<Item> result = itemRepository.findPageBy(PageRequest.of(pg-1, 10));
         model.addAttribute("items", result);
@@ -84,4 +88,5 @@ public class ItemController {
         System.out.println(result.hasNext());
         return "list.html";
     }
+
 }
